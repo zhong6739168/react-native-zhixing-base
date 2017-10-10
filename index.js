@@ -5,9 +5,9 @@ import store, {initStore, injectAsyncReducer, registerSaga} from "./src/store/st
 import {mapToResponseAction} from "./src/actions/actions";
 import LoadingView from "./src/views/LoadingView";
 import BaseComponent from "./src/components/BaseComponent";
+import ApplicationUtils from "./src/util/ApplicationUtils";
+import NavigatorUtils from "./src/util/NavigatorUtils";
 export * from './src/network/FetchApi';
-export * from './src/util/ApplicationUtils';
-export * from './src/util/NavigatorUtils';
 
 export default store;
 
@@ -17,5 +17,7 @@ export {
     registerSaga,
     mapToResponseAction,
     LoadingView,
-    BaseComponent
+    BaseComponent,
+    ApplicationUtils,
+    NavigatorUtils
 }
