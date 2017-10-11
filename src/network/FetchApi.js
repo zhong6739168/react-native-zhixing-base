@@ -45,7 +45,7 @@ export function* putByAction(url, action, responseParser) {
     }
 }
 
-export function* uploadByAction(url, fileUrl, action, responseParser) {
+export function* uploadByAction(url, action, responseParser) {
     let formData = new FormData();
     if (action.payload.files) {
         for (var i = 0; i < action.payload.files.length; i++) {
