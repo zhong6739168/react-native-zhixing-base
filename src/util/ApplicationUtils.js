@@ -1,6 +1,8 @@
 /**
  * Created by zhongxiangyong on 2017/01/01.
  */
+import Toast from "react-native-root-toast";
+
 module.exports = {
     isEmpty: function isEmptyObject(obj) {
         for (var key in obj) {
@@ -67,6 +69,18 @@ module.exports = {
     formatData: function (response) {
         return response.json();
     },
+    
+    
+    normalReducer: function (action,state,mapper) {
+        if (action.payload.code == 0) {
+            action.callback && action.callback(action.payload.data);
+            return Object.assign({}, state, mapper(action));
+        } else {
+            Toast.show(action.payload.errorMsg);
+            action.errorCallback && action.errorCallback();
+        }
+        return state;
+    }
 
 
 }
