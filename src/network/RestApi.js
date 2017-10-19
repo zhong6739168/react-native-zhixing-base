@@ -53,19 +53,21 @@ module.exports = {
         let headers = new Headers();
         headers.append('Accept', 'application/json');
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
+
+        var formData = undefined;
         if (!ApplicationUtils.isEmpty(headersParams)) {
             for (let i = 0; i < headersParams.length; i++) {
-                headers.append(headersParams[i].key, headersParams[i].value);
+                if (headersParams[i].key == 'Content-Type' && headersParams[i].value == 'multipart/form-data') {
+                    formData = new FormData();
+                    for (var i = 0; i < body.length; i++) {
+                        formData.append(body[i].key, body[i].value);
+                    }
+                } else {
+                    headers.append(headersParams[i].key, headersParams[i].value);
+                }
             }
         }
 
-        var formData = undefined;
-        if (headersParams['Content-Type'] == 'multipart/form-data') {
-            formData = new FormData();
-            for (var i = 0; i < body.length; i++) {
-                formData.append(body[i].key, body[i].value);
-            }
-        }
 
         return fetch(url, {
             method: 'POST',
