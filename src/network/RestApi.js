@@ -59,8 +59,8 @@ module.exports = {
             for (let i = 0; i < headersParams.length; i++) {
                 if (headersParams[i].key == 'Content-Type' && headersParams[i].value == 'multipart/form-data') {
                     formData = new FormData();
-                    for (var i = 0; i < body.length; i++) {
-                        formData.append(body[i].key, body[i].value);
+                    for (var key in body) {
+                        formData.append(key, body.key);
                     }
                 } else {
                     headers.append(headersParams[i].key, headersParams[i].value);
