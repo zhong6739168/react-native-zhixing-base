@@ -52,7 +52,7 @@ module.exports = {
         console.log('post :' + url);
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+
 
         var formData = undefined;
         if (!ApplicationUtils.isEmpty(headersParams)) {
@@ -60,14 +60,16 @@ module.exports = {
                 if (headersParams[i].key == 'Content-Type' && headersParams[i].value == 'multipart/form-data') {
                     formData = new FormData();
                     for (var key in body) {
-                        formData.append(key, body.key);
+                        formData.append(key, body[key]);
                     }
-                } else {
+                }else {
                     headers.append(headersParams[i].key, headersParams[i].value);
                 }
             }
         }
-
+        if(!formData) {
+            headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        }
 
         return fetch(url, {
             method: 'POST',

@@ -45,24 +45,6 @@ export function* putByAction(url, action, responseParser) {
     }
 }
 
-export function* uploadByAction(url, action, responseParser) {
-    let formData = new FormData();
-    if (action.payload.files) {
-        for (var i = 0; i < action.payload.files.length; i++) {
-            let file = {uri: action.payload.files[i].fileUrl, type: 'image/png', name: 'image.png'};
-            formData.append(action.payload.files[i].key, file);
-        }
-    }
-    try {
-        const {response} = yield race({
-            response: call(RestApi.UPLOAD, url, action.payload.urlParam, formData, action.headers),
-            timeout: call(delay, time)
-        });
-        yield handleResonse(response, responseParser, action, url);
-    } catch (e) {
-        yield handleError(e, action, url);
-    }
-}
 
 function *handleResonse(response, responseParser, action, url) {
     console.log("response : " + response);
