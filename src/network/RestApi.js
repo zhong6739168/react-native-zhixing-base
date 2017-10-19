@@ -27,7 +27,7 @@ module.exports = {
         let headers = new Headers();
         headers.append('Accept', 'application/json');
         headers.append('Content-Type', 'application/json; charset=utf-8');
-        if(!ApplicationUtils.isEmpty(headersParams)){
+        if (!ApplicationUtils.isEmpty(headersParams)) {
             for (let i = 0; i < headersParams.length; i++) {
                 headers.append(headersParams[i].key, headersParams[i].value);
             }
@@ -53,14 +53,23 @@ module.exports = {
         let headers = new Headers();
         headers.append('Accept', 'application/json');
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
-        if(!ApplicationUtils.isEmpty(headersParams)){
+        if (!ApplicationUtils.isEmpty(headersParams)) {
             for (let i = 0; i < headersParams.length; i++) {
                 headers.append(headersParams[i].key, headersParams[i].value);
             }
         }
+
+        var formData = undefined;
+        if (headersParams['Content-Type'] == 'multipart/form-data') {
+            formData = new FormData();
+            for (var i = 0; i < body.length; i++) {
+                formData.append(body[i].key, body[i].value);
+            }
+        }
+
         return fetch(url, {
             method: 'POST',
-            body: queryString.stringify(body),
+            body: formData ? formData : queryString.stringify(body),
             headers: headers,
         })
             .then(ApplicationUtils.checkStatus)
@@ -79,7 +88,7 @@ module.exports = {
         let headers = new Headers();
         headers.append('Accept', 'application/json');
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
-        if(!ApplicationUtils.isEmpty(headersParams)){
+        if (!ApplicationUtils.isEmpty(headersParams)) {
             for (let i = 0; i < headersParams.length; i++) {
                 headers.append(headersParams[i].key, headersParams[i].value);
             }
@@ -94,28 +103,4 @@ module.exports = {
             .then((response) => response.json());
     },
 
-    UPLOAD: function (url, args, body, headersParams) {
-        if (args) {
-            for (var key in args) {
-                if (url.indexOf('${' + key + '}') >= 0) {
-                    url = url.replace('${' + key + '}', args[key]);
-                }
-            }
-        }
-        console.log('post :' + url);
-        let headers = new Headers();
-        headers.append('Accept', 'application/json');
-        //headers.append('Content-Type', 'multipart/form-data');
-        if(!ApplicationUtils.isEmpty(headersParams)){
-            for (let i = 0; i < headersParams.length; i++) {
-                headers.append(headersParams[i].key, headersParams[i].value);
-            }
-        }
-        return fetch(url, {
-            method: 'POST',
-            body: body,
-            headers: headers,
-        }).then(ApplicationUtils.checkStatus)
-            .then((response) => response.json());
-    },
 };
