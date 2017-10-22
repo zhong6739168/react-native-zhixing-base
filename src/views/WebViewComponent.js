@@ -4,7 +4,7 @@
 import React, {Component} from "react";
 import {WebView, View, Text, Platform, Dimensions} from "react-native";
 import BackComponent from "../components/BaseComponent";
-import ProgressView from "../Views/ProgressView";
+import ProgressView from "./ProgressView";
 
 var mounted;
 class WebViewComponent extends BackComponent {
