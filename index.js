@@ -8,7 +8,15 @@ import WebView from "./src/views/WebViewComponent";
 import BaseComponent from "./src/components/BaseComponent";
 import ApplicationUtils from "./src/util/ApplicationUtils";
 import NavigatorUtils from "./src/util/NavigatorUtils";
+import {Navigation} from "react-native-navigation";
+
+Navigation.registerComponent('UserComponent.Login', () => WebView);
+
+
 export * from './src/network/FetchApi';
+
+
+
 
 export default store;
 
@@ -18,7 +26,6 @@ export {
     registerSaga,
     mapToResponseAction,
     LoadingView,
-    WebView,
     BaseComponent,
     ApplicationUtils,
     NavigatorUtils
