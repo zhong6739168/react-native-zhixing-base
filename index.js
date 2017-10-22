@@ -10,7 +10,7 @@ import ApplicationUtils from "./src/util/ApplicationUtils";
 import NavigatorUtils from "./src/util/NavigatorUtils";
 import {Navigation} from "react-native-navigation";
 
-Navigation.registerComponent('UserComponent.Login', () => WebView);
+Navigation.registerComponent('base.WebView', () => WebView);
 
 
 export * from './src/network/FetchApi';
