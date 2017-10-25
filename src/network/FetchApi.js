@@ -47,8 +47,8 @@ export function* putByAction(url, action, responseParser) {
 
 
 function *handleResonse(response, responseParser, action, url) {
-    console.log("response : " + response);
     if (response != null) {
+        console.log("response : " + responseParser(response));
         yield put({
             type: mapToResponseAction(action.type),
             payload: responseParser(response),
