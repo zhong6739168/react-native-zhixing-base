@@ -62,12 +62,28 @@ module.exports = {
                     for (var key in body) {
                         formData.append(key, body[key]);
                     }
-                }else {
+                }
+                else if (headersParams[i].key == 'Content-Type' && headersParams[i].value == 'application/json') {
+                    formData = body;
+                }
+                else if (headersParams[i].key == 'Content-Type' && headersParams[i].value == 'application/x-www-form-urlencoded'){
+                    formData = [];
+                    for (var key in body) {
+                        if(Array.isArray(body[key])){
+                            body[key].forEach((item)=>{
+                               formData.push({key:item});
+                            });
+                        }else{
+                            formData.push({key:body[key]});
+                        }
+                    }
+                }
+                else {
                     headers.append(headersParams[i].key, headersParams[i].value);
                 }
             }
         }
-        if(!formData) {
+        if (!formData) {
             headers.append('Content-Type', 'application/x-www-form-urlencoded');
         }
 
@@ -91,16 +107,43 @@ module.exports = {
         console.log('post :' + url);
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+
+        var formData = undefined;
         if (!ApplicationUtils.isEmpty(headersParams)) {
             for (let i = 0; i < headersParams.length; i++) {
-                headers.append(headersParams[i].key, headersParams[i].value);
+                if (headersParams[i].key == 'Content-Type' && headersParams[i].value == 'multipart/form-data') {
+                    formData = new FormData();
+                    for (var key in body) {
+                        formData.append(key, body[key]);
+                    }
+                }
+                else if (headersParams[i].key == 'Content-Type' && headersParams[i].value == 'application/json') {
+                    formData = body;
+                }
+                else if (headersParams[i].key == 'Content-Type' && headersParams[i].value == 'application/x-www-form-urlencoded'){
+                    formData = [];
+                    for (var key in body) {
+                        if(Array.isArray(body[key])){
+                            body[key].forEach((item)=>{
+                                formData.push({key:item});
+                            });
+                        }else{
+                            formData.push({key:body[key]});
+                        }
+                    }
+                }
+                else {
+                    headers.append(headersParams[i].key, headersParams[i].value);
+                }
             }
+        }
+        if (!formData) {
+            headers.append('Content-Type', 'application/x-www-form-urlencoded');
         }
 
         return fetch(url, {
             method: 'PUT',
-            body: queryString.stringify(body),
+            body: formData ? formData : queryString.stringify(body),
             headers: headers,
         })
             .then(ApplicationUtils.checkStatus)
