@@ -161,7 +161,7 @@ class WebViewComponent extends BackComponent {
                     source={source}
                     style={{flex: 1}}
                     ref={'webView'}
-                    onLoad={this.onStart().bind(this)}
+                    onLoad={this.onStart.bind(this)}
                     onLoadEnd={this.onEnd.bind(this)}
                     onError={()=> {
                         this.setState({isLoading: false})
