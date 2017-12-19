@@ -64,9 +64,7 @@ class WebViewComponent extends BackComponent {
     }
 
     onShouldStartLoadWithRequest(event) {
-        if (event.url.startsWith('ctrip')) {
-            return false;
-        }
+        this.props.onShouldStartLoadWithRequest && this.props.onShouldStartLoadWithRequest(event);
         var progress = this.state.progress + 0.05;
         if (progress > 0.85) {
             progress = 0.85;
@@ -78,6 +76,7 @@ class WebViewComponent extends BackComponent {
     }
 
     onEnd() {
+        this.props.onEnd && this.props.onEnd();
         this.setState({progress: 1});
         setTimeout(() => {
             this.setState({isLoading: false});
@@ -85,6 +84,7 @@ class WebViewComponent extends BackComponent {
     }
 
     onStart() {
+        this.props.onStart && this.props.onStart();
         this.setState({
             progress: 0.1,
             isLoading: true,
@@ -92,6 +92,7 @@ class WebViewComponent extends BackComponent {
     }
 
     onNavigationStateChange(navState) {
+        this.props.onNavigationStateChange && this.props.onNavigationStateChange(navState);
         if (this.num == 0 && navState.title != '') {
             this.num = 1;
             this.tag = {
@@ -151,7 +152,7 @@ class WebViewComponent extends BackComponent {
         return (
             <View style={{flex: 1}}>
                 <WebView
-                    source={{uri: this.props.moduleUrl}}
+                    source={typeof this.props.moduleUrl === 'string' ? {uri: this.props.moduleUrl} : this.props.moduleUrl}
                     style={{flex: 1}}
                     ref={'webView'}
                     onLoad={this.onEnd.bind(this)}
