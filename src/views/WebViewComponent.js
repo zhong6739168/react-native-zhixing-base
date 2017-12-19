@@ -149,10 +149,16 @@ class WebViewComponent extends BackComponent {
     }
 
     render() {
+        var source = {};
+        if(this.props.html){
+            source = {html: this.props.html};
+        }else if(this.props.moduleUrl){
+            source = typeof this.props.moduleUrl === 'string' ? {uri: this.props.moduleUrl} : this.props.moduleUrl
+        }
         return (
             <View style={{flex: 1}}>
                 <WebView
-                    source={typeof this.props.moduleUrl === 'string' ? {uri: this.props.moduleUrl} : this.props.moduleUrl}
+                    source={source}
                     style={{flex: 1}}
                     ref={'webView'}
                     onLoad={this.onEnd.bind(this)}
