@@ -2,15 +2,14 @@
  * Created by zhongxiangyong on 2017/01/01.
  */
 import {Navigation} from "react-native-navigation";
-
-const titleBar = "#0398fc";
+import {Config} from "../Config";
 module.exports = {
     pushWithBack: function pushParam(screen, title, props, rightButtons, navStyle) {
         return ({
             screen: screen,
             title: title,
             navigatorStyle: Object.assign({}, {
-                navBarBackgroundColor: titleBar,
+                navBarBackgroundColor: Config.getTitleBarColor(),
                 navBarTextColor: 'white',
                 navBarButtonColor: 'white',
                 tabBarHidden: true,
@@ -31,6 +30,5 @@ module.exports = {
             passProps: props
         });
     }
-
 
 };
