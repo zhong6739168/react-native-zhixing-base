@@ -2,7 +2,7 @@
  * Created by zhongxiangyong on 2017/01/01.
  */
 import {Navigation} from "react-native-navigation";
-import {Config} from "../Config";
+import Config from "../Config";
 module.exports = {
     pushWithBack: function pushParam(screen, title, props, rightButtons, navStyle) {
         return ({
