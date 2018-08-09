@@ -9,6 +9,7 @@ import BaseComponent from "./src/components/BaseComponent";
 import ApplicationUtils from "./src/util/ApplicationUtils";
 import NavigatorUtils from "./src/util/NavigatorUtils";
 import {Navigation} from "react-native-navigation";
+import Config from "./src/Config"
 
 Navigation.registerComponent('base.WebView', () => WebView);
 
@@ -28,5 +29,7 @@ export {
     LoadingView,
     BaseComponent,
     ApplicationUtils,
-    NavigatorUtils
+    NavigatorUtils,
+    Config
+
 }
