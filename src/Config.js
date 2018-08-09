@@ -11,7 +11,7 @@ module.exports = {
         titleBarColor = color;
     },
 
-    getTitleBarColor: function () {
+    getTitleBarColor: function getTitleBarColor() {
         return titleBarColor
     }
 };
