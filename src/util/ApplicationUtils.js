@@ -15,29 +15,11 @@ module.exports = {
      * 判断是否null
      * @param data
      */
-    isNull(data){
+    isNull :function(data){
         if (data == undefined || data == null || data == "") {
             return true;
         }
         return false;
-    },
-
-    formatRetainDate: function (date) {
-        return date.split(" ")[0];
-    },
-
-    getFunctionStyle: function (style) {
-        return [{
-            height: 150,
-            backgroundColor: "#04B0F0",
-            borderRadius: 5,
-            marginTop: 10,
-            marginLeft: 10,
-            marginRight: 10,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center'
-        }, style]
     },
 
     encodeUTF8: function (str) {
@@ -69,14 +51,14 @@ module.exports = {
     formatData: function (response) {
         return response.json();
     },
-    
-    
-    normalReducer: function (action,state,mapper) {
-        if (action.payload.code == 0) {
+
+
+    normalReducer: function (action, state, mapper) {
+        if (action.payload.status == 0) {
             action.callback && action.callback(action.payload.data);
             return Object.assign({}, state, mapper(action));
         } else {
-            Toast.show(action.payload.errorMsg);
+            Toast.show(action.payload.errorMsg == null ? "当前网络不可用请稍后再试！" : action.payload.errorMsg);
             action.errorCallback && action.errorCallback();
         }
         return state;
