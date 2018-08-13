@@ -9,14 +9,13 @@ import BaseComponent from "./src/components/BaseComponent";
 import ApplicationUtils from "./src/util/ApplicationUtils";
 import NavigatorUtils from "./src/util/NavigatorUtils";
 import {Navigation} from "react-native-navigation";
-import Config from "./src/Config"
+import Config from "./src/Config";
+import StringUtils from "./src/util/StringUtils";
 
 Navigation.registerComponent('base.WebView', () => WebView);
 
 
 export * from './src/network/FetchApi';
-
-
 
 
 export default store;
@@ -30,6 +29,7 @@ export {
     BaseComponent,
     ApplicationUtils,
     NavigatorUtils,
-    Config
+    Config,
+    StringUtils,
 
 }
