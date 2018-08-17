@@ -66,21 +66,20 @@ module.exports = {
                 else if (headersParams[i].key == 'Content-Type' && headersParams[i].value == 'application/json') {
                     formData = body;
                 }
-                else if (headersParams[i].key == 'Content-Type' && headersParams[i].value == 'application/x-www-form-urlencoded'){
+                else if (headersParams[i].key == 'Content-Type' && headersParams[i].value == 'application/x-www-form-urlencoded') {
                     formData = [];
                     for (var key in body) {
-                        if(Array.isArray(body[key])){
-                            body[key].forEach((item)=>{
-                               formData.push({key:item});
+                        if (Array.isArray(body[key])) {
+                            body[key].forEach((item)=> {
+                                formData.push({key: item});
                             });
-                        }else{
-                            formData.push({key:body[key]});
+                        } else {
+                            formData.push({key: body[key]});
                         }
                     }
                 }
-                else {
-                    headers.append(headersParams[i].key, headersParams[i].value);
-                }
+                headers.append(headersParams[i].key, headersParams[i].value);
+
             }
         }
         if (!formData) {
@@ -132,9 +131,8 @@ module.exports = {
                         }
                     }
                 }
-                else {
-                    headers.append(headersParams[i].key, headersParams[i].value);
-                }
+                headers.append(headersParams[i].key, headersParams[i].value);
+
             }
         }
         if (!formData) {
