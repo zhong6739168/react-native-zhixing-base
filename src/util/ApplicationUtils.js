@@ -58,7 +58,7 @@ module.exports = {
             action.callback && action.callback(action.payload.data);
             return Object.assign({}, state, mapper(action));
         } else {
-            Toast.show(action.payload.errorMsg == null ? "当前网络不可用请稍后再试！" : action.payload.errorMsg);
+            Toast.show(action.payload.message == null ? "当前网络不可用请稍后再试！" : action.payload.message);
             action.errorCallback && action.errorCallback();
         }
         return state;
