@@ -9,12 +9,12 @@ import actions, {mapToResponseAction} from "../actions/actions";
 
 const time = 15000;
 
-export function* fetchByAction(url, action, responseParser) {
+export function* fetchByAction(url, action, responseParser,timeout) {
     try {
         Keyboard.dismiss()
         const {response} = yield race({
             response: call(RestApi.GET, url, action.payload, action.headers),
-            timeout: call(delay, time)
+            timeout: call(timeout == undefined ? delay : timeout, time)
         });
         yield handleResonse(response, responseParser, action, url);
     } catch (e) {
@@ -23,12 +23,12 @@ export function* fetchByAction(url, action, responseParser) {
 }
 
 
-export function* postByAction(url, action, responseParser) {
+export function* postByAction(url, action, responseParser,timeout) {
     try {
         Keyboard.dismiss()
         const {response} = yield race({
             response: call(RestApi.POST, url, action.payload.urlParam, action.payload.bodyParam, action.headers),
-            timeout: call(delay, time)
+            timeout: call(timeout == undefined ? delay : timeout, time)
         });
         yield handleResonse(response, responseParser, action, url);
     } catch (e) {
@@ -36,12 +36,12 @@ export function* postByAction(url, action, responseParser) {
     }
 }
 
-export function* putByAction(url, action, responseParser) {
+export function* putByAction(url, action, responseParser,timeout) {
     try {
         Keyboard.dismiss()
         const {response} = yield race({
             response: call(RestApi.PUT, url, action.payload.urlParam, action.payload.bodyParam, action.headers),
-            timeout: call(delay, time)
+            timeout: call(timeout == undefined ? delay : timeout, time)
         });
         yield handleResonse(response, responseParser, action, url);
     } catch (e) {
