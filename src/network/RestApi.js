@@ -60,7 +60,13 @@ module.exports = {
                 if (headersParams[i].key == 'Content-Type' && headersParams[i].value == 'multipart/form-data') {
                     formData = new FormData();
                     for (var key in body) {
-                        formData.append(key, body[key]);
+                        if(body[key] instanceof Array){
+                            body[key].forEach((item)=>{
+                                formData.append(key, item);
+                            })
+                        }else {
+                            formData.append(key, body[key]);
+                        }
                     }
                 }
                 else if (headersParams[i].key == 'Content-Type' && headersParams[i].value == 'application/json') {
