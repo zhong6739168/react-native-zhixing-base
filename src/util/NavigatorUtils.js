@@ -22,7 +22,9 @@ module.exports = {
                         }],
                         backButton:{
                             visible:false,
-                        }
+                        },
+                        noBorder: true,
+                        height: 50,
                     },
                     bottomTabs: {
                         visible: false,
