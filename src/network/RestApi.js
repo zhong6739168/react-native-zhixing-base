@@ -1,7 +1,7 @@
 /**
  * Created by zhongxiangyong on 2017/01/01.
  */
-import ApplicationUtils from "../util/ApplicationUtils";
+import NetworkUtils from "../util/NetworkUtils";
 import React, {Component} from "react";
 import queryString from "query-string";
 
@@ -20,7 +20,7 @@ module.exports = {
             if (args.encode != null) {
                 config = {encode: args.encode}
             }
-            if (!ApplicationUtils.isEmpty(tmpArgs)) {
+            if (!NetworkUtils.isEmpty(tmpArgs)) {
                 url = url + (url.indexOf('?') > 0 ? '&' : '?') + queryString.stringify(tmpArgs, config);
             }
         }
@@ -55,7 +55,7 @@ module.exports = {
 
 
         var formData = undefined;
-        if (!ApplicationUtils.isEmpty(headersParams)) {
+        if (!NetworkUtils.isEmpty(headersParams)) {
             for (let i = 0; i < headersParams.length; i++) {
                 if (headersParams[i].key == 'Content-Type' && headersParams[i].value == 'multipart/form-data') {
                     formData = new FormData();
@@ -114,7 +114,7 @@ module.exports = {
         headers.append('Accept', 'application/json');
 
         var formData = undefined;
-        if (!ApplicationUtils.isEmpty(headersParams)) {
+        if (!NetworkUtils.isEmpty(headersParams)) {
             for (let i = 0; i < headersParams.length; i++) {
                 if (headersParams[i].key == 'Content-Type' && headersParams[i].value == 'multipart/form-data') {
                     formData = new FormData();

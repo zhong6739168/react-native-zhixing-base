@@ -5,31 +5,35 @@ import React from "react";
 import {Provider} from "react-redux";
 
 module.exports = {
-    pushWithBack: function pushParam(screen, title, props, rightButtons, navStyle) {
+    pushWithBack: function pushParam(screen, title, props, options) {
+        let topBar = Object.assign({}, {
+            title: {
+                text: title
+            },
+            rightButtons: [],
+            leftButtons: [{
+                id: 'backButton',
+                icon: require('../../img/back_white_button.png')
+            }],
+            backButton: {
+                visible: false,
+            }
+        }, options.topBar == undefined ? {} : options.topBar)
+
+        let bottomTabs = Object.assign({}, {
+            visible: false,
+            drawBehind: true,
+        }, options.bottomTabs == undefined ? {} : options.bottomTabs)
+        let mergedOptions = Object.assign({}, {
+            animate: true,
+        }, options, {topBar, bottomTabs})
+
+
         return ({
             component: {
                 name: screen,
                 passProps: props,
-                options: {
-                    topBar: {
-                        title: {
-                            text: title
-                        },
-                        rightButtons: rightButtons == null ? [] : rightButtons,
-                        leftButtons: [{
-                            id: 'backButton',
-                            icon:require('../../img/back_white_button.png')
-                        }],
-                        backButton:{
-                            visible:false,
-                        }
-                    },
-                    bottomTabs: {
-                        visible: false,
-                        drawBehind:true,
-                    },
-                    animate: true,
-                }
+                options: mergedOptions,
             }
         });
     },

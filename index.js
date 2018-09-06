@@ -6,7 +6,7 @@ import {mapToResponseAction} from "./src/actions/actions";
 import LoadingView from "./src/views/LoadingView";
 import WebView from "./src/views/WebViewComponent";
 import BaseComponent from "./src/components/BaseComponent";
-import ApplicationUtils from "./src/util/ApplicationUtils";
+import NetworkUtils from "./src/util/NetworkUtils";
 import NavigatorUtils from "./src/util/NavigatorUtils";
 import {Navigation} from "react-native-navigation";
 import Config from "./src/Config";
@@ -27,7 +27,7 @@ export {
     mapToResponseAction,
     LoadingView,
     BaseComponent,
-    ApplicationUtils,
+    NetworkUtils,
     NavigatorUtils,
     Config,
     StringUtils,
