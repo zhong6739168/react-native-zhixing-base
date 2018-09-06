@@ -27,7 +27,7 @@ module.exports = {
         let headers = new Headers();
         headers.append('Accept', 'application/json');
         headers.append('Content-Type', 'application/json; charset=utf-8');
-        if (!ApplicationUtils.isEmpty(headersParams)) {
+        if (!NetworkUtils.isEmpty(headersParams)) {
             for (let i = 0; i < headersParams.length; i++) {
                 headers.append(headersParams[i].key, headersParams[i].value);
             }
@@ -36,7 +36,7 @@ module.exports = {
         return fetch(url, {
             headers: headers,
         })
-            .then(ApplicationUtils.checkStatus)
+            .then(NetworkUtils.checkStatus)
             .then((response) => response.json());
     },
 
@@ -97,7 +97,7 @@ module.exports = {
             body: formData ? formData : queryString.stringify(body),
             headers: headers,
         })
-            .then(ApplicationUtils.checkStatus)
+            .then(NetworkUtils.checkStatus)
             .then((response) => response.json());
     },
 
@@ -150,7 +150,7 @@ module.exports = {
             body: formData ? formData : queryString.stringify(body),
             headers: headers,
         })
-            .then(ApplicationUtils.checkStatus)
+            .then(NetworkUtils.checkStatus)
             .then((response) => response.json());
     },
 
