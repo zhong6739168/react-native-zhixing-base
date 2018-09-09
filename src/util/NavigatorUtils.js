@@ -3,38 +3,33 @@
  */
 import React from "react";
 import {Provider} from "react-redux";
+import Config from "../Config";
 
 module.exports = {
-    pushWithBack: function pushParam(screen, title, props, options) {
-        let topBar = Object.assign({}, {
-            title: {
-                text: title
-            },
-            rightButtons: [],
-            leftButtons: [{
-                id: 'backButton',
-                icon: require('../../img/back_white_button.png')
-            }],
-            backButton: {
-                visible: false,
-            }
-        }, options == undefined || options.topBar == undefined ? {} : options.topBar)
-
-        let bottomTabs = Object.assign({}, {
-            visible: false,
-            drawBehind: true,
-        }, options == undefined || options.bottomTabs == undefined ? {} : options.bottomTabs)
-        let mergedOptions = Object.assign({}, {
-            animate: true,
-        }, options, {topBar, bottomTabs})
-
-
+    pushWithBack: function pushParam(screen, title, props, navigatorButtons, navStyle) {
         return ({
-            component: {
-                name: screen,
-                passProps: props,
-                options: mergedOptions,
-            }
+            screen: screen,
+            title: title,
+            navigatorStyle: Object.assign({}, {
+                navBarBackgroundColor: Config.getTitleBarColor(),
+                navBarTextColor: 'white',
+                navBarButtonColor: 'white',
+                tabBarHidden: true,
+                navBarNoBorder: true,
+                topBarElevationShadowEnabled: false,
+                navBarTitleTextCentered: true,
+            }, navStyle),
+            navigatorButtons: {
+                leftButtons: navigatorButtons != undefined && navigatorButtons.leftButtons != undefined ? navigatorButtons.leftButtons : [
+                    {
+                        icon: require('../../img/back_white_button.png'),
+                        id: 'backButton',
+                        title: '返回'
+                    }
+                ],
+                rightButtons: navigatorButtons != undefined && navigatorButtons.rightButtons != undefined ? navigatorButtons.rightButtons : []
+            },
+            passProps: props
         });
     },
 
