@@ -18,12 +18,12 @@ module.exports = {
             backButton: {
                 visible: false,
             }
-        }, options.topBar == undefined ? {} : options.topBar)
+        }, options == undefined || options.topBar == undefined ? {} : options.topBar)
 
         let bottomTabs = Object.assign({}, {
             visible: false,
             drawBehind: true,
-        }, options.bottomTabs == undefined ? {} : options.bottomTabs)
+        }, options == undefined || options.bottomTabs == undefined ? {} : options.bottomTabs)
         let mergedOptions = Object.assign({}, {
             animate: true,
         }, options, {topBar, bottomTabs})

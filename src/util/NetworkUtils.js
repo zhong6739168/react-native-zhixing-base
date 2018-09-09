@@ -19,7 +19,6 @@ module.exports = {
         return response.json();
     },
 
-
     normalReducer: function (action, state, mapper) {
         if (action.payload.status == 0) {
             action.callback && action.callback(action.payload.data);
