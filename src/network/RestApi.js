@@ -2,6 +2,7 @@
  * Created by zhongxiangyong on 2017/01/01.
  */
 import NetworkUtils from "../util/NetworkUtils";
+import StringUtils from "../util/StringUtils";
 import React, {Component} from "react";
 import queryString from "query-string";
 
@@ -20,14 +21,14 @@ module.exports = {
             if (args.encode != null) {
                 config = {encode: args.encode}
             }
-            if (!NetworkUtils.isEmpty(tmpArgs)) {
+            if (!StringUtils.isEmpty(tmpArgs)) {
                 url = url + (url.indexOf('?') > 0 ? '&' : '?') + queryString.stringify(tmpArgs, config);
             }
         }
         let headers = new Headers();
         headers.append('Accept', 'application/json');
         headers.append('Content-Type', 'application/json; charset=utf-8');
-        if (!NetworkUtils.isEmpty(headersParams)) {
+        if (!StringUtils.isEmpty(headersParams)) {
             for (let i = 0; i < headersParams.length; i++) {
                 headers.append(headersParams[i].key, headersParams[i].value);
             }
@@ -55,7 +56,7 @@ module.exports = {
 
 
         var formData = undefined;
-        if (!NetworkUtils.isEmpty(headersParams)) {
+        if (!StringUtils.isEmpty(headersParams)) {
             for (let i = 0; i < headersParams.length; i++) {
                 if (headersParams[i].key == 'Content-Type' && headersParams[i].value == 'multipart/form-data') {
                     formData = new FormData();
@@ -114,7 +115,7 @@ module.exports = {
         headers.append('Accept', 'application/json');
 
         var formData = undefined;
-        if (!NetworkUtils.isEmpty(headersParams)) {
+        if (!StringUtils.isEmpty(headersParams)) {
             for (let i = 0; i < headersParams.length; i++) {
                 if (headersParams[i].key == 'Content-Type' && headersParams[i].value == 'multipart/form-data') {
                     formData = new FormData();
