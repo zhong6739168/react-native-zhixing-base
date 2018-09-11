@@ -23,9 +23,7 @@ module.exports = {
         if (action.payload.status == 0) {
             action.callback && action.callback(action.payload.data);
             return Object.assign({}, state, mapper(action));
-        } else if (action.payload.status == 2) {
-            throw Error('您的登录令牌已失效，请重新登录账号');
-        }else {
+        } else {
             Toast.show(action.payload.message == null ? "当前网络不可用请稍后再试！" : action.payload.message);
             action.errorCallback && action.errorCallback();
         }

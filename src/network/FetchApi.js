@@ -11,12 +11,11 @@ const time = 15000;
 
 export function* fetchByAction(url, action, responseParser, timeout) {
     try {
-        Keyboard.dismiss()
         const {response} = yield race({
             response: call(RestApi.GET, url, action.payload, action.headers),
             timeout: call(delay, timeout == undefined ? time : timeout)
         });
-        yield handleResonse(response, responseParser, action, url);
+        yield handleResponse(response, responseParser, action, url);
     } catch (e) {
         yield handleError(e, action, url);
     }
@@ -25,12 +24,11 @@ export function* fetchByAction(url, action, responseParser, timeout) {
 
 export function* postByAction(url, action, responseParser, timeout) {
     try {
-        Keyboard.dismiss()
         const {response} = yield race({
             response: call(RestApi.POST, url, action.payload.urlParam, action.payload.bodyParam, action.headers),
             timeout: call(delay, timeout == undefined ? time : timeout)
         });
-        yield handleResonse(response, responseParser, action, url);
+        yield handleResponse(response, responseParser, action, url);
     } catch (e) {
         yield handleError(e, action, url);
     }
@@ -38,31 +36,37 @@ export function* postByAction(url, action, responseParser, timeout) {
 
 export function* putByAction(url, action, responseParser, timeout) {
     try {
-        Keyboard.dismiss()
         const {response} = yield race({
             response: call(RestApi.PUT, url, action.payload.urlParam, action.payload.bodyParam, action.headers),
             timeout: call(delay, timeout == undefined ? time : timeout)
         });
-        yield handleResonse(response, responseParser, action, url);
+        yield handleResponse(response, responseParser, action, url);
     } catch (e) {
         yield handleError(e, action, url);
     }
 }
 
 
-function *handleResonse(response, responseParser, action, url) {
+function *handleResponse(response, responseParser, action, url) {
     if (response != null) {
         console.log("response : " + JSON.stringify(response));
-        yield put({
-            type: mapToResponseAction(action.type),
-            payload: responseParser(response),
-            callback: action.callback,
-            from: action.type,
-            requestParam: action.payload,
-            requestUrl: url,
-            otherParam: action.otherParam,
-            errorCallback: action.errorCallback,
-        });
+        if (response.status == 2) {
+            yield put({
+                type: "tokenInvalid",
+                message: "您的登录令牌已失效，请重新登录账号",
+            });
+        } else {
+            yield put({
+                type: mapToResponseAction(action.type),
+                payload: responseParser(response),
+                callback: action.callback,
+                from: action.type,
+                requestParam: action.payload,
+                requestUrl: url,
+                otherParam: action.otherParam,
+                errorCallback: action.errorCallback,
+            });
+        }
     }
     else {
         throw new Error('请求超时，请稍后再试。');
