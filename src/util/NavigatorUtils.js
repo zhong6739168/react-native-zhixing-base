@@ -18,6 +18,7 @@ module.exports = {
                 navBarNoBorder: true,
                 topBarElevationShadowEnabled: false,
                 navBarTitleTextCentered: true,
+                navBarHeight: 50
             }, navStyle),
             navigatorButtons: {
                 leftButtons: navigatorButtons != undefined && navigatorButtons.leftButtons != undefined ? navigatorButtons.leftButtons : [
