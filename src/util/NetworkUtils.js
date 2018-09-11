@@ -23,7 +23,9 @@ module.exports = {
         if (action.payload.status == 0) {
             action.callback && action.callback(action.payload.data);
             return Object.assign({}, state, mapper(action));
-        } else {
+        } else if (action.payload.status == 2) {
+            throw Error('token失效');
+        }else {
             Toast.show(action.payload.message == null ? "当前网络不可用请稍后再试！" : action.payload.message);
             action.errorCallback && action.errorCallback();
         }
