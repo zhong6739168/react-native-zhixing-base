@@ -2,7 +2,6 @@
  * Created by zhongxiangyong on 2017/01/01.
  */
 import {call, put, race} from "redux-saga/effects";
-import {Keyboard} from "react-native";
 import RestApi from "../network/RestApi";
 import {delay} from "redux-saga";
 import actions, {mapToResponseAction} from "../actions/actions";
