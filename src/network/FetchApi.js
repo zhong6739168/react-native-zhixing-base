@@ -11,7 +11,7 @@ const time = 15000;
 
 export function* fetchByAction(url, action, responseParser, timeout) {
     try {
-        if(!action.noDismissKeyboard){
+        if(action.noDismissKeyboard == undefined){
             Keyboard.dismiss();
         }
         const {response} = yield race({
@@ -27,7 +27,7 @@ export function* fetchByAction(url, action, responseParser, timeout) {
 
 export function* postByAction(url, action, responseParser, timeout) {
     try {
-        if(!action.noDismissKeyboard){
+        if(action.noDismissKeyboard == undefined){
             Keyboard.dismiss();
         }
         const {response} = yield race({
