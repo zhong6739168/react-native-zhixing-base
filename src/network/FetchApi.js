@@ -11,9 +11,7 @@ const time = 15000;
 
 export function* fetchByAction(url, action, responseParser, timeout) {
     try {
-        if(action.noDismissKeyboard == undefined){
-            Keyboard.dismiss();
-        }
+        yield action.noDismissKeyboard == undefined ? Keyboard.dismiss() : "";
         const {response} = yield race({
             response: call(RestApi.GET, url, action.payload, action.headers),
             timeout: call(delay, timeout == undefined ? time : timeout)
@@ -27,9 +25,7 @@ export function* fetchByAction(url, action, responseParser, timeout) {
 
 export function* postByAction(url, action, responseParser, timeout) {
     try {
-        if(action.noDismissKeyboard == undefined){
-            Keyboard.dismiss();
-        }
+        yield action.noDismissKeyboard == undefined ? Keyboard.dismiss() : "";
         const {response} = yield race({
             response: call(RestApi.POST, url, action.payload.urlParam, action.payload.bodyParam, action.headers),
             timeout: call(delay, timeout == undefined ? time : timeout)
@@ -42,9 +38,7 @@ export function* postByAction(url, action, responseParser, timeout) {
 
 export function* putByAction(url, action, responseParser, timeout) {
     try {
-        if(!action.noDismissKeyboard){
-            Keyboard.dismiss();
-        }
+        yield action.noDismissKeyboard == undefined ? Keyboard.dismiss() : "";
         const {response} = yield race({
             response: call(RestApi.PUT, url, action.payload.urlParam, action.payload.bodyParam, action.headers),
             timeout: call(delay, timeout == undefined ? time : timeout)
